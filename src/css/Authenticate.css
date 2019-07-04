@@ -1,0 +1,45 @@
+.LoginPage {
+    height: 100vh;
+    background: url(https://wallpaperstream.com/wallpapers/full/aurora/Polar-Lights-and-Stars-View-Wallpaper.jpg) no-repeat center;
+    display: flex;
+    align-items: center;
+}
+
+.form {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    background-color: #ccc;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+.form input {
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.25);
+}
+
+.submitBtn {
+    width: 100%;
+    background-color: forestgreen;
+    border: 0;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.25);
+}
+
+.submitBtn:hover {
+    background-color: rgba(34, 139, 34, 0.85);
+}
+
+.toRegistration {
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.toLogin {
+    text-align: center;
+    margin-bottom: 0;
+}
