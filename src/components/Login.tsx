@@ -1,8 +1,10 @@
 import React from 'react';
 import '../css/Authenticate.css';
 import { Link, Redirect } from 'react-router-dom';
+import { authorize } from '../reducer';
+import { connect } from 'react-redux';
 
-export default class LoginPage extends React.Component {
+class LoginPage extends React.Component<any> {
 
     state = {
         email: '',
@@ -12,10 +14,12 @@ export default class LoginPage extends React.Component {
 
     signIn = (e: any) => {
         e.preventDefault();
-        this.setState({ shouldRedirect: true });
+        const { email, password } = this.state;
+        this.props.dispatch(authorize(email, password));
+        //this.setState({ shouldRedirect: true });
     }
 
-    handleChange = (e: any) => {
+    onChange = (e: any) => {
         this.setState({
             [e.target.id]: e.target.value
         })
@@ -35,10 +39,10 @@ export default class LoginPage extends React.Component {
                                 </div>
 
                                 <div className="form-group">
-                                    <input type="email" id="email" className="form-control" onChange={this.handleChange} placeholder="enter your email here..." />
+                                    <input type="text" id="email" className="form-control" onChange={this.onChange} placeholder="enter your email here..." />
                                 </div>
                                 <div className="form-group">
-                                    <input type="password" id="password" className="form-control" onChange={this.handleChange} placeholder="enter your password here..." />
+                                    <input type="password" id="password" className="form-control" onChange={this.onChange} placeholder="enter your password here..." />
                                 </div>
                                 <div className="form-group">
                                     <button className="btn btn-primary submitBtn">Login</button>
@@ -54,3 +58,10 @@ export default class LoginPage extends React.Component {
         )
     }
 }
+
+const mapStateToProps = (state: any) => ({
+    token: state.auth.token,
+    error: state.auth.error
+});
+
+export default connect(mapStateToProps)(LoginPage);

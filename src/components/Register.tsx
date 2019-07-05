@@ -17,7 +17,7 @@ export default class RegisterPage extends React.Component {
         this.setState({ shouldRedirect: true });
     }
 
-    handleChange = (e: any) => {
+    onChange = (e: any) => {
         this.setState({
             [e.target.id]: e.target.value
         })
@@ -37,16 +37,16 @@ export default class RegisterPage extends React.Component {
                                 </div>
 
                                 <div className="form-group">
-                                    <input type="text" id="firstName" className="form-control" onChange={this.handleChange} placeholder="enter your first name here..." />
+                                    <input type="text" id="firstName" className="form-control" onChange={this.onChange} placeholder="enter your first name here..." />
                                 </div>
                                 <div className="form-group">
-                                    <input type="text" id="lastName" className="form-control" onChange={this.handleChange} placeholder="enter your last name here..." />
+                                    <input type="text" id="lastName" className="form-control" onChange={this.onChange} placeholder="enter your last name here..." />
                                 </div>
                                 <div className="form-group">
-                                    <input type="email" id="email" className="form-control" onChange={this.handleChange} placeholder="enter your email here..." />
+                                    <input type="email" id="email" className="form-control" onChange={this.onChange} placeholder="enter your email here..." />
                                 </div>
                                 <div className="form-group">
-                                    <input type="password" id="password" className="form-control" onChange={this.handleChange} placeholder="enter your password here..." />
+                                    <input type="password" id="password" className="form-control" onChange={this.onChange} placeholder="enter your password here..." />
                                 </div>
                                 <div className="form-group">
                                     <button className="btn btn-primary submitBtn">Sign Up</button>
