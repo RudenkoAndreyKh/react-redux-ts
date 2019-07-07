@@ -1,7 +1,7 @@
 import React from 'react';
 import '../css/Authenticate.css';
 import { Link, Redirect } from 'react-router-dom';
-import { authorize } from '../reducer';
+import { authorize } from '../redux/reducer';
 import { connect } from 'react-redux';
 
 class LoginPage extends React.Component<any> {
@@ -14,9 +14,13 @@ class LoginPage extends React.Component<any> {
 
     signIn = (e: any) => {
         e.preventDefault();
-        const { email, password } = this.state;
-        this.props.dispatch(authorize(email, password));
-        //this.setState({ shouldRedirect: true });
+        try {
+            const { email, password } = this.state;
+            this.props.dispatch(authorize(email, password));
+        } catch (err) {
+            console.log(err);            
+        }
+
     }
 
     onChange = (e: any) => {
@@ -48,7 +52,7 @@ class LoginPage extends React.Component<any> {
                                     <button className="btn btn-primary submitBtn">Login</button>
                                 </div>
                                 <div className="form-group toRegistration">
-                                    <Link to="/registration">Registration</Link>
+                                    <Link className="link" to="/registration">Registration</Link>
                                 </div>
                             </form>
                     }

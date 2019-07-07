@@ -1,9 +1,8 @@
 import React from 'react';
-import { Router, Route, Link } from "react-router-dom";
+import { Router, Route } from "react-router-dom";
 import HomePage from './components/Home';
 import LoginPage from './components/Login';
 import RegisterPage from './components/Register';
-import { ConnectedRouter } from 'react-router-redux';
 
 interface Props {
     history: any;
