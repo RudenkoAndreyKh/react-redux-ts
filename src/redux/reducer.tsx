@@ -81,7 +81,6 @@ const homeState = {
 
 const isLoggedInReducer = (state = homeState, { type, payload }: any) => {
   console.log(payload);
-
   switch (type) {
     case ISLOGGEDIN_SUCCESS: {
       return { ...state, isLoggedIn: payload }
