@@ -10,15 +10,21 @@ export const authorize = (email: string, password: string) => ({
   payload: { email, password }
 });
 
+let user: any = localStorage.getItem('user');
+
 const initialState = {
   token: localStorage.getItem('token'),
+  user: JSON.parse(user),
   error: null
 };
 
 const authReducer = (state = initialState, { type, payload }: any) => {
+
   switch (type) {
     case AUTH_SUCCESS: {
-      return { ...state, token: payload };
+      return Object.assign({}, state, {
+        data: payload
+      })
     }
     case AUTH_FAILURE: {
       return { ...state, error: payload }
@@ -57,9 +63,48 @@ const registerReducer = (state = initialRegState, { type, payload }: any) => {
   }
 };
 
+
+//ISLOGGEDIN
+export const ISLOGGEDIN_REQUEST = 'ISLOGGEDIN_REQUEST';
+export const ISLOGGEDIN_SUCCESS = 'ISLOGGEDIN_SUCCESS';
+export const ISLOGGEDIN_FAILURE = 'ISLOGGEDIN_FAILURE';
+
+export const isLoggedIn = (user: any, token: string) => ({
+  type: ISLOGGEDIN_REQUEST,
+  payload: user, token
+});
+
+const homeState = {
+  error: null,
+  isLoggedIn: false,
+};
+
+const isLoggedInReducer = (state = homeState, { type, payload }: any) => {
+  console.log(payload);
+
+  switch (type) {
+    case ISLOGGEDIN_SUCCESS: {
+      return { ...state, isLoggedIn: payload }
+      
+    }
+    case ISLOGGEDIN_FAILURE: {
+      return { ...state, error: payload }
+    }
+    default:
+      return state;
+  }
+};
+
+export const state = {
+  auth: initialState,
+  reg: initialRegState,
+  home: homeState
+}
+
 const reducer = combineReducers({
   auth: authReducer,
-  reg: registerReducer
+  reg: registerReducer,
+  home: isLoggedInReducer
 });
 
 export default reducer;

@@ -2,12 +2,26 @@ import React from 'react';
 import AppHeader from './AppHeader';
 import '../css/StorePage.css';
 import HttpRequestService from '../services/HttpRequestService';
+import { connect } from 'react-redux';
+import { state } from '../redux/reducer';
+import { isLoggedIn } from '../redux/reducer';
 
-export default class HomePage extends React.Component {
+const mapStateToProps = (state: any) => ({
+    data: state.auth.user,
+});
+
+class HomePage extends React.Component<any> {
     httpReq = new HttpRequestService('');
 
     state = {
         data: []
+    }
+
+    componentWillMount() {
+        const token = localStorage.getItem("token");
+        const user = localStorage.getItem("user");
+        console.log("home", token);
+        this.props.dispatch(isLoggedIn(token, JSON.stringify(user)));
     }
 
     componentDidMount() {
@@ -37,3 +51,7 @@ export default class HomePage extends React.Component {
         )
     }
 }
+
+
+
+export default connect(mapStateToProps)(HomePage)

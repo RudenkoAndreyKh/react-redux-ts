@@ -17,7 +17,17 @@ class RegisterPage extends React.Component<any> {
         lastNameError: '',
         emailError: '',
         passwordError: '',
-        shouldRedirect: false,
+        isUserLoggedIn: false,
+    }
+
+    componentWillMount() {
+        let user = localStorage.getItem("user");
+        if (user) {
+            this.setState({
+                isUserLoggedIn: true,
+            })
+        }
+        return;
     }
 
     validateForm = () => {
@@ -71,71 +81,69 @@ class RegisterPage extends React.Component<any> {
 
     render() {
         return (
-            <div className="LoginPage">
-                <div className="container">
-                    {
-                        this.state.shouldRedirect ?
-                            <Redirect to="/login" push /> :
-                            <form onSubmit={this.signUp} className="form col-sm-6">
-                                <div className="headline">
-                                    <h5 className="text-monospace">Sign Up</h5>
-                                    <p className="text-monospace">Enter your personal information to sign up</p>
-                                </div>
+            this.state.isUserLoggedIn ?
+                <Redirect to="/" push /> :
+                <div className="AuthPage">
+                    <div className="container">
+                        <form onSubmit={this.signUp} className="form col-sm-6">
+                            <div className="headline">
+                                <h5 className="text-monospace">Sign Up</h5>
+                                <p className="text-monospace">Enter your personal information to sign up</p>
+                            </div>
 
-                                <div className="form-group">
-                                    <input
-                                        type="text"
-                                        id="firstName"
-                                        className="form-control"
-                                        onChange={this.onChange}
-                                        placeholder="enter your first name here..." />
-                                    {this.state.firstNameError ?
-                                        (<div className="formError">{this.state.firstNameError}</div>)
-                                        : null}
-                                </div>
-                                <div className="form-group">
-                                    <input
-                                        type="text"
-                                        id="lastName"
-                                        className="form-control"
-                                        onChange={this.onChange}
-                                        placeholder="enter your last name here..." />
-                                    {this.state.lastNameError ?
-                                        (<div className="formError">{this.state.lastNameError}</div>)
-                                        : null}
-                                </div>
-                                <div className="form-group">
-                                    <input
-                                        type="email"
-                                        id="email"
-                                        className="form-control"
-                                        onChange={this.onChange}
-                                        placeholder="enter your email here..." />
-                                    {this.state.emailError ?
-                                        (<div className="formError">{this.state.emailError}</div>)
-                                        : null}
-                                </div>
-                                <div className="form-group">
-                                    <input
-                                        type="password"
-                                        id="password"
-                                        className="form-control"
-                                        onChange={this.onChange}
-                                        placeholder="enter your password here..." />
-                                    {this.state.passwordError ?
-                                        (<div className="formError">{this.state.passwordError}</div>)
-                                        : null}
-                                </div>
-                                <div className="form-group">
-                                    <button className="btn btn-primary submitBtn">Sign Up</button>
-                                </div>
-                                <div className="form-group toLogin">
-                                    <Link className="link" to="/login">Login</Link>
-                                </div>
-                            </form>
-                    }
+                            <div className="form-group">
+                                <input
+                                    type="text"
+                                    id="firstName"
+                                    className="form-control"
+                                    onChange={this.onChange}
+                                    placeholder="enter your first name here..." />
+                                {this.state.firstNameError ?
+                                    (<div className="formError">{this.state.firstNameError}</div>)
+                                    : null}
+                            </div>
+                            <div className="form-group">
+                                <input
+                                    type="text"
+                                    id="lastName"
+                                    className="form-control"
+                                    onChange={this.onChange}
+                                    placeholder="enter your last name here..." />
+                                {this.state.lastNameError ?
+                                    (<div className="formError">{this.state.lastNameError}</div>)
+                                    : null}
+                            </div>
+                            <div className="form-group">
+                                <input
+                                    type="email"
+                                    id="email"
+                                    className="form-control"
+                                    onChange={this.onChange}
+                                    placeholder="enter your email here..." />
+                                {this.state.emailError ?
+                                    (<div className="formError">{this.state.emailError}</div>)
+                                    : null}
+                            </div>
+                            <div className="form-group">
+                                <input
+                                    type="password"
+                                    id="password"
+                                    className="form-control"
+                                    onChange={this.onChange}
+                                    placeholder="enter your password here..." />
+                                {this.state.passwordError ?
+                                    (<div className="formError">{this.state.passwordError}</div>)
+                                    : null}
+                            </div>
+                            <div className="form-group">
+                                <button className="btn btn-primary submitBtn">Sign Up</button>
+                            </div>
+                            <div className="form-group toLogin">
+                                <Link className="link" to="/login">Login</Link>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
         )
     }
 }

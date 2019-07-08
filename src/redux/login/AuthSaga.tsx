@@ -10,7 +10,7 @@ const fetchJSON = (url: string, body: any) =>
         return axios.post(url, body)
             .then(res => (res.data.status !== 200 ? reject(res) : res))
             .then((res: any) => {
-                resolve(res.data.data.accessToken);
+                resolve(res.data.data);
             })
             .catch(error => reject(error));
     });
@@ -20,19 +20,22 @@ function* authorize({ payload: { email, password } }: any) {
         email, password
     };
     try {
-        const token: string = yield call(fetchJSON, 'http://localhost:4000/auth/sign-in', body);
+        const data = yield call(fetchJSON, 'http://localhost:4000/auth/sign-in', body);
+        let user: string = JSON.stringify({firstName: data.user.firstName, lastName: data.user.lastName, email: data.user.email, image: data.user.image});
+        let token: string = JSON.stringify(data.accessToken);
 
-        yield put({ type: AUTH_SUCCESS, payload: token });
+        yield put({ type: AUTH_SUCCESS, payload: data});
+        localStorage.setItem('user', user);
         localStorage.setItem('token', token);
         yield put(push('/'));
     } catch (error) {
-        
+
         let message;
         switch (error.data.status) {
             case error.data.status: message = error.data.message; break;
             default: message = 'Something went wrong';
         }
-        
+
         yield put({ type: AUTH_FAILURE, payload: message });
         localStorage.removeItem('token');
     }

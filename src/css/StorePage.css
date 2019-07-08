@@ -6,7 +6,9 @@
 
 .storeContent{
     display: flex;
+    flex-wrap: wrap;
     margin-top: 5em;
+    padding-bottom: 5em;
 }
 
 .gameCard {

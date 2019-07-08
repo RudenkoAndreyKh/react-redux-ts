@@ -11,23 +11,31 @@ import { applyMiddleware, createStore } from 'redux';
 
 import AuthSaga from './redux/login/AuthSaga';
 import RegisterSaga from './redux/registration/RegisterSaga';
-import reducer from './redux/reducer';
+import IsLoggedInSaga from './redux/home/isLoggedInSaga';
+import configureStore from './redux/ConfigureStore';
+import { all } from 'redux-saga/effects';
+import { composeWithDevTools } from "redux-devtools-extension";
+import {state} from './redux/reducer';
 
 // create middlewares
 const history = require("history").createBrowserHistory();
 const sagaMiddleware = createSagaMiddleware();
 
-const middleware = applyMiddleware(
-  routerMiddleware(history),
-  sagaMiddleware
-);
+// const middleware = applyMiddleware(
+//   routerMiddleware(history),
+//   sagaMiddleware
+// );
 
-// create store
-const store = createStore(reducer, middleware);
+const middlewares = [sagaMiddleware];
+const composeEnhancers = composeWithDevTools({});
+const enhancer = composeEnhancers(applyMiddleware(...middlewares, routerMiddleware(history)));
+const store = configureStore(state, enhancer)
 
-// run saga middleware
-sagaMiddleware.run(AuthSaga);
-sagaMiddleware.run(RegisterSaga);
+sagaMiddleware.run(function* () {
+  yield all([AuthSaga(), RegisterSaga(), IsLoggedInSaga()]);
+});
+
+
 
 
 ReactDOM.render(<Provider store={store}><Routering history={history} /></Provider>, document.getElementById('root'));

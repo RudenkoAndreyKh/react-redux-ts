@@ -9,7 +9,17 @@ class LoginPage extends React.Component<any> {
     state = {
         email: '',
         password: '',
-        shouldRedirect: false,
+        isUserLoggedIn: false,
+    }
+
+    componentWillMount() {
+        let user = localStorage.getItem("user");
+        if (user) {
+            this.setState({
+                isUserLoggedIn: true,
+            })
+        }
+        return;
     }
 
     signIn = (e: any) => {
@@ -18,7 +28,7 @@ class LoginPage extends React.Component<any> {
             const { email, password } = this.state;
             this.props.dispatch(authorize(email, password));
         } catch (err) {
-            console.log(err);            
+            console.log(err);
         }
 
     }
@@ -31,40 +41,38 @@ class LoginPage extends React.Component<any> {
 
     render() {
         return (
-            <div className="LoginPage">
-                <div className="container">
-                    {
-                        this.state.shouldRedirect ?
-                            <Redirect to="/" push /> :
-                            <form onSubmit={this.signIn} className="form col-sm-6">
-                                <div className="headline">
-                                    <h5 className="text-monospace">Sign in</h5>
-                                    <p className="text-monospace">Enter your email and password to login</p>
-                                </div>
+            this.state.isUserLoggedIn ?
+                <Redirect to="/" push /> :
+                <div className="AuthPage">
+                    <div className="container">
+                        <form onSubmit={this.signIn} className="form col-sm-6">
+                            <div className="headline">
+                                <h5 className="text-monospace">Sign in</h5>
+                                <p className="text-monospace">Enter your email and password to login</p>
+                            </div>
 
-                                <div className="form-group">
-                                    <input type="text" id="email" className="form-control" onChange={this.onChange} placeholder="enter your email here..." />
-                                </div>
-                                <div className="form-group">
-                                    <input type="password" id="password" className="form-control" onChange={this.onChange} placeholder="enter your password here..." />
-                                </div>
-                                <div className="form-group">
-                                    <button className="btn btn-primary submitBtn">Login</button>
-                                </div>
-                                <div className="form-group toRegistration">
-                                    <Link className="link" to="/registration">Registration</Link>
-                                </div>
-                            </form>
-                    }
-
+                            <div className="form-group">
+                                <input type="text" id="email" className="form-control" onChange={this.onChange} placeholder="enter your email here..." />
+                            </div>
+                            <div className="form-group">
+                                <input type="password" id="password" className="form-control" onChange={this.onChange} placeholder="enter your password here..." />
+                            </div>
+                            <div className="form-group">
+                                <button className="btn btn-primary submitBtn">Login</button>
+                            </div>
+                            <div className="form-group toRegistration">
+                                <Link className="link" to="/registration">Registration</Link>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
         )
     }
 }
 
 const mapStateToProps = (state: any) => ({
     token: state.auth.token,
+    data: state.auth.data,
     error: state.auth.error
 });
 
