@@ -10,7 +10,7 @@ const fetchJSON = (url: string, body: any) =>
         return axios.post(url, body)
             .then(res => (res.data.status !== 200 ? reject(res) : res))
             .then((res: any) => {                
-                resolve(res.data.success);
+                resolve(res.data);
             })
             .catch(error => reject(error));
     });
@@ -24,9 +24,9 @@ function* isLoggedIn() {
     };
 
     try {
-        const isLoggedIn = yield call(fetchJSON, 'http://localhost:4000/auth/is-logged-in', body);
+        const data = yield call(fetchJSON, 'http://localhost:4000/auth/is-logged-in', body);
 
-        yield put({ type: ISLOGGEDIN_SUCCESS, payload: isLoggedIn });
+        yield put({ type: ISLOGGEDIN_SUCCESS, payload: data });
     } catch (error) {
         let message;
         switch (error.data.status) {

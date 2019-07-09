@@ -18,10 +18,10 @@ class HomePage extends React.Component<any> {
     }
 
     componentWillMount() {
-        const token = localStorage.getItem("token");
+        const token:any = localStorage.getItem("token");
         const user = localStorage.getItem("user");
         console.log("home", token);
-        this.props.dispatch(isLoggedIn(token, JSON.stringify(user)));
+        this.props.dispatch(isLoggedIn(JSON.stringify(user), token ));
     }
 
     componentDidMount() {

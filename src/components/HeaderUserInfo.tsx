@@ -9,18 +9,20 @@ const mapStateToProps = (state: any) => ({
 
 export class UserInfoComponent extends React.Component<any> {
   componentWillReceiveProps(props:any) {
-
+    
+    
   }
 
   render() {
-    let user = state.auth.user;
-    let isLoggedIn = this.props.isLoggedIn;
-
+    const user = this.props.isLoggedIn.user;
+    const isLoggedIn = this.props.isLoggedIn.success;
+    console.log("islog",this.props);
+    
+    if(!user) return null;
     return (
       <div className="userInfo">
-        <h1>xxxxx{isLoggedIn.toString()}</h1>
-        <img src={user && (user.image || '')} alt="" />
-        <h5>Hello {user && user.firstName}</h5>
+        <img src={user.image || ''} alt="" />
+        <h5>Hello {user.firstName}</h5>
       </div>
     )
   }
