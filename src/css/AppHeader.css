@@ -44,3 +44,9 @@
 .userInfo img {
   height: 40px;
 }
+
+.shoppingCartList{
+  background-color: #fff;
+  position: absolute;
+  z-index: 1;
+}

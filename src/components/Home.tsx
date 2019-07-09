@@ -3,25 +3,29 @@ import AppHeader from './AppHeader';
 import '../css/StorePage.css';
 import HttpRequestService from '../services/HttpRequestService';
 import { connect } from 'react-redux';
-import { state } from '../redux/reducer';
-import { isLoggedIn } from '../redux/reducer';
+import { addToCart } from '../redux/home/addItemReducer';
+import { isLoggedInAct } from '../redux/home/isLoggedInReducer';
+import { mainState, game } from '../redux/types';
 
-const mapStateToProps = (state: any) => ({
-    data: state.auth.user,
+const mapStateToProps = (state: mainState) => ({
+    user: state.auth.user,
+    token: state.auth.token,
+    error: state.auth.error,
+    isLoggedIn: state.home.isLoggedIn
 });
 
 class HomePage extends React.Component<any> {
     httpReq = new HttpRequestService('');
 
     state = {
-        data: []
+        data: [],
+        isLoggedIn: false,
     }
 
     componentWillMount() {
-        const token:any = localStorage.getItem("token");
-        const user = localStorage.getItem("user");
-        console.log("home", token);
-        this.props.dispatch(isLoggedIn(JSON.stringify(user), token ));
+        const token: string | null = localStorage.getItem("token");
+        const user: string | null = localStorage.getItem("user");
+        this.props.dispatch(isLoggedInAct(JSON.stringify(user), token));
     }
 
     componentDidMount() {
@@ -32,18 +36,27 @@ class HomePage extends React.Component<any> {
                 })
             })
     }
+
+    addToCart = (game: game) => {        
+        try {
+            this.props.dispatch(addToCart(game));
+        } catch (err) {
+            console.log(err);
+        }
+    }
     render() {
         return (
             <div className="HomePage">
                 <AppHeader />
                 <div className="storeContent container">
-                    {this.state.data.map((game: any, index) => {
+                    {this.state.data.map((game: game, index) => {
+                        if(game.quantity === null)game.quantity = 0; 
                         return <div key={index} className="gameCard">
                             <img src={game.image} alt={game.name} />
                             <p className="gameName">{game.name}</p>
                             <p className="gameDesc">{game.description}</p>
                             <p className="gamePrice">Price: {game.price}</p>
-                            <button className="addGameToCartBtn">add to cart</button>
+                            <button onClick={() => this.addToCart(game)} className="addGameToCartBtn">add to cart</button>
                         </div>
                     })}
                 </div>

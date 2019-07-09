@@ -1,34 +1,70 @@
 export interface authState {
-    token: any,
-    user: {},
+    token: string | null,
+    user: user,
     error: string
 }
 
 export interface regState {
-    error: string
+    error: string,
+    token: string | null
 }
 
 export interface homeState {
-    isLoggedIn: Object,
+    isLoggedIn: isLoggedIn,
     error: string
 }
 
 export interface mainState {
     auth: authState,
     reg: regState,
-    home: homeState
+    home: homeState,
+    cart: cart
 }
 
 export interface isLoggedIn {
-    status: Number,
-    success: Boolean,
-    message: String,
-    user: Object
+    status: number,
+    success: boolean,
+    message: string,
+    user: user
 }
 
 export interface user {
-    firstName: String,
-    lastName: String,
-    email: String,
-    image: String
+    firstName: string,
+    lastName: string,
+    email: string,
+    image: string
+}
+
+export interface game {
+    name: string,
+    description: string,
+    image: string,
+    price: number,
+    _id: string,
+    quantity: number
+}
+
+export interface authAction {
+    type: string,
+    payload: any
+}
+
+export interface regAction {
+    type: string,
+    payload: any
+}
+
+export interface homeIsLoggedInAction {
+    type: string,
+    payload: any
+}
+
+export interface addToCartAction {
+    type: string,
+    payload: any
+}
+
+export interface cart {
+    error: string,
+    cart: any[]
 }

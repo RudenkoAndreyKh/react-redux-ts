@@ -1,7 +1,8 @@
 import React from 'react';
 import '../css/AppHeader.css';
 import { Link } from 'react-router-dom';
-import {UserInfo} from './HeaderUserInfo';
+import { UserInfo } from './HeaderUserInfo';
+import ShoppingCart from './ShoppingCart';
 
 export default class AppHeader extends React.Component {
   logout() {
@@ -20,6 +21,7 @@ export default class AppHeader extends React.Component {
             <li><Link className="link" to="/login" onClick={() => this.logout()}>Logout</Link></li>
           </ul>
           <UserInfo />
+          <ShoppingCart />
         </div>
       </header>
     );

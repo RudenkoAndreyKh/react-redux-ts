@@ -1,7 +1,7 @@
 import React from 'react';
 import '../css/Authenticate.css';
 import { Link, Redirect } from 'react-router-dom';
-import { authorize } from '../redux/reducer';
+import { authorize } from '../redux/login/AuthReducer';
 import { connect } from 'react-redux';
 
 class LoginPage extends React.Component<any> {

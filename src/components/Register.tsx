@@ -1,7 +1,7 @@
 import React from 'react';
 import '../css/Authenticate.css';
 import { Link, Redirect } from 'react-router-dom';
-import { registration } from '../redux/reducer';
+import { registration } from '../redux/registration/RegistrationReducer';
 import { connect } from 'react-redux';
 import { defaultImage } from '../env';
 

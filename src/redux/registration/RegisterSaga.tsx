@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 
-import { REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE } from '../reducer';
+import { REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE } from './RegistrationReducer';
 import { push } from 'react-router-redux';
 
 import axios from 'axios';
@@ -19,10 +19,8 @@ function* registration({ payload: { firstName, lastName, email, password, image 
     const body = {
         firstName, lastName, email, password, image
     };
-    console.log("registration");
     try {
         const user: string = yield call(fetchJSON, 'http://localhost:4000/auth/create-new-user', body);
-        console.log(user);
 
         yield put({ type: REGISTER_SUCCESS, payload: user });
         yield put(push('/login'));

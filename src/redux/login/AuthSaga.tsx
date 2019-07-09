@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 
-import { AUTH_REQUEST, AUTH_SUCCESS, AUTH_FAILURE } from '../reducer';
+import { AUTH_REQUEST, AUTH_SUCCESS, AUTH_FAILURE } from './AuthReducer';
 import { push } from 'react-router-redux';
 
 import axios from 'axios';

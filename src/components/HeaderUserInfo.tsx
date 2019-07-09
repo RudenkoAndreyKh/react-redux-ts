@@ -1,24 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { state } from '../redux/reducer';
+import { mainState, homeState } from '../redux/types';
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: mainState) => ({
+  error: state.home.error,
   isLoggedIn: state.home.isLoggedIn,
 });
 
 
-export class UserInfoComponent extends React.Component<any> {
-  componentWillReceiveProps(props:any) {
-    
-    
-  }
+export class UserInfoComponent extends React.Component<homeState> {
 
   render() {
     const user = this.props.isLoggedIn.user;
-    const isLoggedIn = this.props.isLoggedIn.success;
-    console.log("islog",this.props);
-    
-    if(!user) return null;
+
+    if (!user) return null;
     return (
       <div className="userInfo">
         <img src={user.image || ''} alt="" />

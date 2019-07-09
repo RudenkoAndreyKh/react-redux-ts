@@ -1,7 +1,6 @@
-import { call, put, takeLatest, takeEvery } from 'redux-saga/effects';
+import { call, put, takeEvery } from 'redux-saga/effects';
 
-import { ISLOGGEDIN_REQUEST, ISLOGGEDIN_SUCCESS, ISLOGGEDIN_FAILURE } from '../reducer';
-import { push } from 'react-router-redux';
+import { ISLOGGEDIN_REQUEST, ISLOGGEDIN_SUCCESS, ISLOGGEDIN_FAILURE } from './isLoggedInReducer';
 
 import axios from 'axios';
 
@@ -25,6 +24,8 @@ function* isLoggedIn() {
 
     try {
         const data = yield call(fetchJSON, 'http://localhost:4000/auth/is-logged-in', body);
+        console.log("data", data);
+        
 
         yield put({ type: ISLOGGEDIN_SUCCESS, payload: data });
     } catch (error) {
