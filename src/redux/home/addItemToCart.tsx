@@ -1,6 +1,6 @@
 import { put, takeLatest } from 'redux-saga/effects';
 
-import { ADDTOCART_REQUEST, ADDTOCART_SUCCESS, ADDTOCART_FAILURE } from './addItemReducer';
+import { ADDTOCART_REQUEST, ADDTOCART_SUCCESS, ADDTOCART_FAILURE } from './CartReducer';
 
 function* addToCart(game: any) {
 

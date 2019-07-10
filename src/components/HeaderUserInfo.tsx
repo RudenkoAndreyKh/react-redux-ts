@@ -1,14 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { mainState, homeState } from '../redux/types';
+import { MainState, HomeState } from '../redux/types';
+import { Link } from 'react-router-dom';
 
-const mapStateToProps = (state: mainState) => ({
+const mapStateToProps = (state: MainState) => ({
   error: state.home.error,
   isLoggedIn: state.home.isLoggedIn,
 });
 
 
-export class UserInfoComponent extends React.Component<homeState> {
+export class UserInfoComponent extends React.Component<HomeState> {
 
   render() {
     const user = this.props.isLoggedIn.user;
@@ -16,7 +17,7 @@ export class UserInfoComponent extends React.Component<homeState> {
     if (!user) return null;
     return (
       <div className="userInfo">
-        <img src={user.image || ''} alt="" />
+        <Link className="link" to="/user-page"><img src={user.image || ''} alt="" /></Link>
         <h5>Hello {user.firstName}</h5>
       </div>
     )

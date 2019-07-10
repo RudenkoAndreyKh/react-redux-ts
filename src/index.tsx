@@ -14,10 +14,11 @@ import RegisterSaga from './redux/registration/RegisterSaga';
 import IsLoggedInSaga from './redux/home/isLoggedInSaga';
 import addItemToCartSaga from './redux/home/addItemToCart';
 import removeItemFromCartSaga from './redux/home/removeItemFromCartSaga';
+import changeUserInfoSaga from './redux/changeInfo/ChangeSaga';
 import configureStore from './redux/ConfigureStore';
 import { all } from 'redux-saga/effects';
 import { composeWithDevTools } from "redux-devtools-extension";
-import {state} from './redux/reducer';
+import { state } from './redux/reducer';
 
 // create middlewares
 const history = require("history").createBrowserHistory();
@@ -34,7 +35,7 @@ const enhancer = composeEnhancers(applyMiddleware(...middlewares, routerMiddlewa
 const store = configureStore(state, enhancer)
 
 sagaMiddleware.run(function* () {
-  yield all([AuthSaga(), RegisterSaga(), IsLoggedInSaga(), addItemToCartSaga(), removeItemFromCartSaga()]);
+  yield all([AuthSaga(), RegisterSaga(), IsLoggedInSaga(), addItemToCartSaga(), removeItemFromCartSaga(), changeUserInfoSaga()]);
 });
 
 

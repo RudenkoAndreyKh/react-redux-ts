@@ -1,4 +1,4 @@
-import { regState, regAction } from "../types";
+import { RegState, RegAction } from "../types";
 
 export const REGISTER_REQUEST = 'REGISTER_REQUEST';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
@@ -9,12 +9,12 @@ export const registration = (firstName: string, lastName: string, email: string,
   payload: { firstName, lastName, email, password, image }
 });
 
-export const initialReg: regState = {
+export const initialReg: RegState = {
   token: localStorage.getItem('token'),
   error: ''
 };
 
-export const registerReducer = (state: regState = initialReg, { type, payload }: regAction) => {
+export const registerReducer = (state: RegState = initialReg, { type, payload }: RegAction) => {
   switch (type) {
     case REGISTER_SUCCESS: {
       return { ...state };

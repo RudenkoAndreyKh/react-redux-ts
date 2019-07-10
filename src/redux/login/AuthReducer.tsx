@@ -1,4 +1,4 @@
-import { authState, authAction } from "../types";
+import { AuthState, AuthAction } from "../types";
 
 export const AUTH_REQUEST = 'AUTH_REQUEST';
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
@@ -11,13 +11,13 @@ export const authorize = (email: string, password: string) => ({
 
 let userModel: any = localStorage.getItem('user');
 
-export const initialAuth: authState = {
+export const initialAuth: AuthState = {
   token: localStorage.getItem('token'),
   user: JSON.parse(userModel),
   error: ''
 };
 
-export const authReducer = (state: authState = initialAuth, { type, payload }: authAction) => {
+export const authReducer = (state: AuthState = initialAuth, { type, payload }: AuthAction) => {
 
   switch (type) {
     case AUTH_SUCCESS: {

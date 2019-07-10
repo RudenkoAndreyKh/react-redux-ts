@@ -3,11 +3,11 @@ import AppHeader from './AppHeader';
 import '../css/StorePage.css';
 import HttpRequestService from '../services/HttpRequestService';
 import { connect } from 'react-redux';
-import { addToCart } from '../redux/home/addItemReducer';
+import { addToCart } from '../redux/home/CartReducer';
 import { isLoggedInAct } from '../redux/home/isLoggedInReducer';
-import { mainState, game } from '../redux/types';
+import { MainState, Game } from '../redux/types';
 
-const mapStateToProps = (state: mainState) => ({
+const mapStateToProps = (state: MainState) => ({
     user: state.auth.user,
     token: state.auth.token,
     error: state.auth.error,
@@ -37,7 +37,7 @@ class HomePage extends React.Component<any> {
             })
     }
 
-    addToCart = (game: game) => {        
+    addToCart = (game: Game) => {        
         try {
             this.props.dispatch(addToCart(game));
         } catch (err) {
@@ -49,7 +49,7 @@ class HomePage extends React.Component<any> {
             <div className="HomePage">
                 <AppHeader />
                 <div className="storeContent container">
-                    {this.state.data.map((game: game, index) => {
+                    {this.state.data.map((game: Game, index) => {
                         if(game.quantity === null)game.quantity = 0; 
                         return <div key={index} className="gameCard">
                             <img src={game.image} alt={game.name} />

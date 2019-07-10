@@ -21,7 +21,7 @@ function* authorize({ payload: { email, password } }: any) {
     };
     try {
         const data = yield call(fetchJSON, 'http://localhost:4000/auth/sign-in', body);
-        let user: string = JSON.stringify({firstName: data.user.firstName, lastName: data.user.lastName, email: data.user.email, image: data.user.image});
+        let user: string = JSON.stringify({firstName: data.user.firstName, lastName: data.user.lastName, email: data.user.email, image: data.user.image, _id: data.user._id});
         let token: string = JSON.stringify(data.accessToken);
 
         yield put({ type: AUTH_SUCCESS, payload: data});

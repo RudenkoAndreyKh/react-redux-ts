@@ -1,9 +1,9 @@
 import { put, takeLatest } from 'redux-saga/effects';
 
-import { REMOVEFROMCART_REQUEST, REMOVEFROMCART_SUCCESS, REMOVEFROMCART_FAILURE } from './removeItemFromCartReducer';
+import { REMOVEFROMCART_REQUEST, REMOVEFROMCART_SUCCESS, REMOVEFROMCART_FAILURE } from './CartReducer';
 
 function* removeFromCart(game: any) {
-    console.log(game);
+    console.log("game",game);
 
     try {
         let data = JSON.stringify({ _id: game.payload._id, quantity: game.payload.quantity });

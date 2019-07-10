@@ -1,4 +1,4 @@
-import { homeState, homeIsLoggedInAction } from "../types";
+import { HomeState, HomeIsLoggedInAction } from "../types";
 
 export const ISLOGGEDIN_REQUEST = 'ISLOGGEDIN_REQUEST';
 export const ISLOGGEDIN_SUCCESS = 'ISLOGGEDIN_SUCCESS';
@@ -9,7 +9,7 @@ export const isLoggedInAct = (user: string | null, token: string | null) => ({
   payload: user, token
 });
 
-export const initialHome: homeState = {
+export const initialHome: HomeState = {
   error: '',
   isLoggedIn: {
     status: 0,
@@ -24,7 +24,7 @@ export const initialHome: homeState = {
   },
 };
 
-export const isLoggedInReducer = (state = initialHome, { type, payload }: homeIsLoggedInAction) => {
+export const isLoggedInReducer = (state = initialHome, { type, payload }: HomeIsLoggedInAction) => {
 
   switch (type) {
     case ISLOGGEDIN_SUCCESS: {

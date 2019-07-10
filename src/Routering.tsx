@@ -3,6 +3,7 @@ import { Router, Route } from "react-router-dom";
 import HomePage from './components/Home';
 import LoginPage from './components/Login';
 import RegisterPage from './components/Register';
+import UserPage from './components/UserPage';
 
 interface Props {
     history: any;
@@ -20,6 +21,7 @@ export default class Routering extends React.Component <Props> {
                     <Route exact path="/" component={HomePage} />
                     <Route path="/login" component={LoginPage} />
                     <Route path="/registration" component={RegisterPage} />
+                    <Route path="/user-page" component={UserPage} />
                 </div>
             </Router>
         );

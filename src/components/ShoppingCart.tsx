@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { mainState, game, cart } from '../redux/types';
-import { removeFromCart } from '../redux/home/removeItemFromCartReducer';
+import { MainState, Game, Cart } from '../redux/types';
+import { removeFromCart, removeAllItems } from '../redux/home/CartReducer';
 
-const mapStateToProps = (state: mainState) => ({
+const mapStateToProps = (state: MainState) => ({
     cart: state.cart.cart,
-    error: ''
+    error: '',
 });
 
 class ShoppingCart extends React.Component<any> {
@@ -13,16 +13,18 @@ class ShoppingCart extends React.Component<any> {
         isOpened: false
     }
 
-
-
-    componentWillReceiveProps(props: any) {
-        console.log('componentWillReceiveProps');
-
-    }
-
-    removeGameFromCart(game: game) {
+    removeGameFromCart(game: Game) {
         try {
             this.props.dispatch(removeFromCart(game));
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    removeAllItems(){
+        try {
+            this.props.dispatch(removeAllItems());
+            localStorage.removeItem("cart")
         } catch (err) {
             console.log(err);
         }
@@ -32,8 +34,9 @@ class ShoppingCart extends React.Component<any> {
         return <div>
             <button onClick={() => this.setState({ isOpened: !this.state.isOpened })}>Shopping cart</button>
             {this.state.isOpened ? <div className="shoppingCart">
+            <button onClick={() => this.removeAllItems()}>REMOVE ALL ITEMS</button>
                 <ul className="shoppingCartList">
-                    {this.props.cart.map((game: game, index: number) => {
+                    {this.props.cart.map((game: Game, index: number) => {
                         return <li key={index}>
                             {game.name}, price: {game.price * game.quantity} <button onClick={() => this.removeGameFromCart(game)}>-</button>
                         </li>

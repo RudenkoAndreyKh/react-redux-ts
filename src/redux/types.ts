@@ -1,41 +1,41 @@
-export interface authState {
+export interface AuthState {
     token: string | null,
-    user: user,
+    user: User,
     error: string
 }
 
-export interface regState {
+export interface RegState {
     error: string,
     token: string | null
 }
 
-export interface homeState {
-    isLoggedIn: isLoggedIn,
+export interface HomeState {
+    isLoggedIn: IsLoggedIn,
     error: string
 }
 
-export interface mainState {
-    auth: authState,
-    reg: regState,
-    home: homeState,
-    cart: cart
+export interface MainState {
+    auth: AuthState,
+    reg: RegState,
+    home: HomeState,
+    cart: Cart
 }
 
-export interface isLoggedIn {
+export interface IsLoggedIn {
     status: number,
     success: boolean,
     message: string,
-    user: user
+    user: User
 }
 
-export interface user {
+export interface User {
     firstName: string,
     lastName: string,
     email: string,
     image: string
 }
 
-export interface game {
+export interface Game {
     name: string,
     description: string,
     image: string,
@@ -44,27 +44,38 @@ export interface game {
     quantity: number
 }
 
-export interface authAction {
+export interface AuthAction {
     type: string,
     payload: any
 }
 
-export interface regAction {
+export interface RegAction {
     type: string,
     payload: any
 }
 
-export interface homeIsLoggedInAction {
+export interface HomeIsLoggedInAction {
     type: string,
     payload: any
 }
 
-export interface addToCartAction {
+export interface AddToCartAction {
     type: string,
     payload: any
 }
 
-export interface cart {
+export interface Cart {
     error: string,
     cart: any[]
+}
+
+export interface ChangeState {
+    token: string | null,
+    user: User,
+    error: string
+}
+
+export interface ChangeAction {
+    type: string,
+    payload: any
 }
