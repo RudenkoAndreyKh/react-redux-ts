@@ -1,6 +1,6 @@
 export interface AuthState {
     token: string | null,
-    user: User,
+    user: User | null,
     error: string
 }
 
@@ -71,11 +71,20 @@ export interface Cart {
 
 export interface ChangeState {
     token: string | null,
-    user: User,
+    user: User | null,
     error: string
 }
 
 export interface ChangeAction {
     type: string,
     payload: any
+}
+
+export interface UserModel {
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string,
+    image: string,
+    _id: string,
 }

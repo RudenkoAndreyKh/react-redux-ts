@@ -29,10 +29,10 @@ export const removeAllItems = () => ({
   type: REMOVECART_REQUEST,
 });
 
-const shoppingCart: any[] = JSON.parse(localStorage.getItem('cart') || "[]");
+const shoppingCart: Array<object> = JSON.parse(localStorage.getItem('cart') || "[]");
 
 export const initialCart: Cart = {
-  cart: shoppingCart || [],
+  cart: shoppingCart,
   error: ''
 };
 

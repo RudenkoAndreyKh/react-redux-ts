@@ -22,7 +22,9 @@ class LoginPage extends React.Component<any> {
         return;
     }
 
-    signIn = (e: any) => {
+    signIn = (e: React.FormEvent) => {
+        console.log(this.state);
+        
         e.preventDefault();
         try {
             const { email, password } = this.state;
@@ -33,10 +35,13 @@ class LoginPage extends React.Component<any> {
 
     }
 
-    onChange = (e: any) => {
+    onChange = (e: React.FormEvent) => {
+        console.log(this.state);
         this.setState({
-            [e.target.id]: e.target.value
+            [(e.target as HTMLInputElement).id]: (e.target as HTMLInputElement).value
         })
+        
+        
     }
 
     render() {
@@ -45,17 +50,17 @@ class LoginPage extends React.Component<any> {
                 <Redirect to="/" push /> :
                 <div className="AuthPage">
                     <div className="container">
-                        <form onSubmit={this.signIn} className="form col-sm-6">
+                        <form onSubmit={e => this.signIn(e)} className="form col-sm-6">
                             <div className="headline">
                                 <h5 className="text-monospace">Sign in</h5>
                                 <p className="text-monospace">Enter your email and password to login</p>
                             </div>
 
                             <div className="form-group">
-                                <input type="text" id="email" className="form-control" onChange={this.onChange} placeholder="enter your email here..." />
+                                <input type="text" id="email" className="form-control" onChange={e => this.onChange(e)} placeholder="enter your email here..." />
                             </div>
                             <div className="form-group">
-                                <input type="password" id="password" className="form-control" onChange={this.onChange} placeholder="enter your password here..." />
+                                <input type="password" id="password" className="form-control" onChange={e => this.onChange(e)} placeholder="enter your password here..." />
                             </div>
                             <div className="form-group">
                                 <button className="btn btn-primary submitBtn">Login</button>

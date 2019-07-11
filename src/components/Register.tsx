@@ -64,7 +64,7 @@ class RegisterPage extends React.Component<any> {
         return true;
     }
 
-    signUp = (e: any) => {
+    signUp = (e: React.FormEvent) => {
         e.preventDefault();
         const isValid = this.validateForm();
         if (isValid) {
@@ -73,9 +73,9 @@ class RegisterPage extends React.Component<any> {
         }
     }
 
-    onChange = (e: any) => {
+    onChange = (e: React.FormEvent) => {
         this.setState({
-            [e.target.id]: e.target.value
+            [(e.target as HTMLInputElement).id]: (e.target as HTMLInputElement).value
         })
     }
 
@@ -85,7 +85,7 @@ class RegisterPage extends React.Component<any> {
                 <Redirect to="/" push /> :
                 <div className="AuthPage">
                     <div className="container">
-                        <form onSubmit={this.signUp} className="form col-sm-6">
+                        <form onSubmit={e => this.signUp(e)} className="form col-sm-6">
                             <div className="headline">
                                 <h5 className="text-monospace">Sign Up</h5>
                                 <p className="text-monospace">Enter your personal information to sign up</p>
@@ -96,7 +96,7 @@ class RegisterPage extends React.Component<any> {
                                     type="text"
                                     id="firstName"
                                     className="form-control"
-                                    onChange={this.onChange}
+                                    onChange={e => this.onChange(e)}
                                     placeholder="enter your first name here..." />
                                 {this.state.firstNameError ?
                                     (<div className="formError">{this.state.firstNameError}</div>)
@@ -107,7 +107,7 @@ class RegisterPage extends React.Component<any> {
                                     type="text"
                                     id="lastName"
                                     className="form-control"
-                                    onChange={this.onChange}
+                                    onChange={e => this.onChange(e)}
                                     placeholder="enter your last name here..." />
                                 {this.state.lastNameError ?
                                     (<div className="formError">{this.state.lastNameError}</div>)
@@ -118,7 +118,7 @@ class RegisterPage extends React.Component<any> {
                                     type="email"
                                     id="email"
                                     className="form-control"
-                                    onChange={this.onChange}
+                                    onChange={e => this.onChange(e)}
                                     placeholder="enter your email here..." />
                                 {this.state.emailError ?
                                     (<div className="formError">{this.state.emailError}</div>)
@@ -129,7 +129,7 @@ class RegisterPage extends React.Component<any> {
                                     type="password"
                                     id="password"
                                     className="form-control"
-                                    onChange={this.onChange}
+                                    onChange={e => this.onChange(e)}
                                     placeholder="enter your password here..." />
                                 {this.state.passwordError ?
                                     (<div className="formError">{this.state.passwordError}</div>)

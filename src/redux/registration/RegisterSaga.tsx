@@ -3,14 +3,25 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import { REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE } from './RegistrationReducer';
 import { push } from 'react-router-redux';
 
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
-const fetchJSON = (url: string, body: any) =>
+interface Body {
+    firstName: string, 
+    lastName: string, 
+    email: string, 
+    password: string, 
+    image: string
+}
+
+const fetchJSON = (url: string, body: Body) =>
     new Promise((resolve, reject) => {
         return axios.post(url, body)
             .then(res => (res.data.status !== 201 ? reject(res) : res))
-            .then((res: any) => {
-                resolve(res.data.data.newUser);
+            .then((res: AxiosResponse | void) => {
+                if(res){
+                    resolve(res.data.data.newUser);
+                }
+                reject(res);
             })
             .catch(error => reject(error));
     });

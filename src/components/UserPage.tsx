@@ -6,7 +6,7 @@ import { MainState } from '../redux/types';
 import { isLoggedInAct } from '../redux/home/isLoggedInReducer';
 import { changingUser } from '../redux/changeInfo/ChangeReducer';
 import AppHeader from './AppHeader';
-import FileBase64 from './CompressingImage';
+import FileBase64, { FileInfo } from './CompressingImage';
 
 const mapStateToProps = (state: MainState) => ({
     user: state.auth.user,
@@ -84,13 +84,13 @@ class UserPage extends React.Component<any> {
         return true;
     }
 
-    onChange = (e: any) => {
+    onChange = (e: React.FormEvent) => {
         this.setState({
-            [e.target.id]: e.target.value
+            [(e.target as HTMLInputElement).id]: (e.target as HTMLInputElement).value
         })
     }
 
-    changeUserInfo = (e: any) => {
+    changeUserInfo = (e: React.FormEvent) => {
         e.preventDefault();
         if (this.validateForm()) {
             const userModel = { firstName: this.state.firstName, lastName: this.state.lastName, email: this.state.email, unhashedPass: this.state.password, image: this.state.image, _id: this.state._id };
@@ -103,7 +103,8 @@ class UserPage extends React.Component<any> {
 
     }
 
-    getFiles(file: any[]) {
+    getFiles(file: Array<FileInfo>) {
+        console.log(file);
         this.setState({ file: file[0].base64, image: file[0].base64 })
     }
 
@@ -114,7 +115,7 @@ class UserPage extends React.Component<any> {
                 <div className="UserPage">
                     <AppHeader />
                     <div className="container">
-                        <form onSubmit={this.changeUserInfo} className="form col-sm-6">
+                        <form onSubmit={e => this.changeUserInfo(e)} className="form col-sm-6">
                             <div className="headline">
                                 <h5 className="text-monospace">Change Info</h5>
                             </div>
@@ -124,7 +125,7 @@ class UserPage extends React.Component<any> {
                                     type="text"
                                     id="firstName"
                                     className="form-control"
-                                    onChange={this.onChange}
+                                    onChange={e => this.onChange(e)}
                                     placeholder="enter your first name here..." />
                                 {this.state.firstNameError ?
                                     (<div className="formError">{this.state.firstNameError}</div>)
@@ -135,7 +136,7 @@ class UserPage extends React.Component<any> {
                                     type="text"
                                     id="lastName"
                                     className="form-control"
-                                    onChange={this.onChange}
+                                    onChange={e => this.onChange(e)}
                                     placeholder="enter your last name here..." />
                                 {this.state.lastNameError ?
                                     (<div className="formError">{this.state.lastNameError}</div>)
@@ -146,7 +147,7 @@ class UserPage extends React.Component<any> {
                                     type="email"
                                     id="email"
                                     className="form-control"
-                                    onChange={this.onChange}
+                                    onChange={e => this.onChange(e)}
                                     placeholder="enter your email here..." />
                                 {this.state.emailError ?
                                     (<div className="formError">{this.state.emailError}</div>)
@@ -157,7 +158,7 @@ class UserPage extends React.Component<any> {
                                     type="password"
                                     id="password"
                                     className="form-control"
-                                    onChange={this.onChange}
+                                    onChange={e => this.onChange(e)}
                                     placeholder="enter your password here..." />
                                 {this.state.passwordError ?
                                     (<div className="formError">{this.state.passwordError}</div>)

@@ -9,13 +9,23 @@ export const changingUser = (userModel: any) => ({
     payload: userModel
 });
 
-let userModel: any = localStorage.getItem('user');
+let userModel: string | null = localStorage.getItem('user');
 
-export const initialChange: ChangeState = {
-    token: localStorage.getItem('token'),
-    user: JSON.parse(userModel),
+export let initialChange: ChangeState = {
+    token: null,
+    user: null,
     error: ''
-};
+}
+
+if (userModel) {
+    initialChange = {
+        token: localStorage.getItem('token'),
+        user: JSON.parse(userModel),
+        error: ''
+    };
+}
+
+
 
 export const changeReducer = (state: ChangeState = initialChange, { type, payload }: ChangeAction) => {
     switch (type) {

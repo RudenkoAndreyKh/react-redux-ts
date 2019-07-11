@@ -9,13 +9,21 @@ export const authorize = (email: string, password: string) => ({
   payload: { email, password }
 });
 
-let userModel: any = localStorage.getItem('user');
+let userModel: string | null = localStorage.getItem('user');
 
-export const initialAuth: AuthState = {
-  token: localStorage.getItem('token'),
-  user: JSON.parse(userModel),
+export let initialAuth: AuthState = {
+  token: null,
+  user: null,
   error: ''
 };
+
+if (userModel) {
+  initialAuth = {
+    token: localStorage.getItem('token'),
+    user: JSON.parse(userModel),
+    error: ''
+  }
+}
 
 export const authReducer = (state: AuthState = initialAuth, { type, payload }: AuthAction) => {
 
