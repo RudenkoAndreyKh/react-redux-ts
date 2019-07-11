@@ -11,19 +11,15 @@ export const authorize = (email: string, password: string) => ({
 
 let userModel: string | null = localStorage.getItem('user');
 
-export let initialAuth: AuthState = {
-  token: null,
-  user: null,
+type MakePick<Type, Keys extends keyof Type> = { [Key in Keys]: Type[Key] };
+
+type TestMakePick = MakePick<AuthState, "token" | "user" | "error">;
+
+export let initialAuth: TestMakePick = {
+  token: localStorage.getItem('token'),
+  user: JSON.parse(userModel || 'null'),
   error: ''
 };
-
-if (userModel) {
-  initialAuth = {
-    token: localStorage.getItem('token'),
-    user: JSON.parse(userModel),
-    error: ''
-  }
-}
 
 export const authReducer = (state: AuthState = initialAuth, { type, payload }: AuthAction) => {
 

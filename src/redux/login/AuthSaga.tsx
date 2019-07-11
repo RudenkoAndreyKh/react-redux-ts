@@ -5,6 +5,11 @@ import { push } from 'react-router-redux';
 
 import axios, { AxiosResponse } from 'axios';
 
+interface Body {
+    email: string,
+    password: string,
+}
+
 const fetchJSON = (url: string, body: Body) =>
     new Promise((resolve, reject) => {
         return axios.post(url, body)

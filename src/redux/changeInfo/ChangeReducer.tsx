@@ -25,8 +25,6 @@ if (userModel) {
     };
 }
 
-
-
 export const changeReducer = (state: ChangeState = initialChange, { type, payload }: ChangeAction) => {
     switch (type) {
         case CHANGEUSER_SUCCESS: {

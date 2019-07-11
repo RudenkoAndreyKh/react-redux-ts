@@ -27,9 +27,11 @@ function* changingUser({ payload: userModel }: any) {
 
 
         const data = yield call(fetchJSON, `http://localhost:4000/users/${body._id}`, body);
+        console.log("type data", data);
+        
         let user: string = JSON.stringify({ firstName: data.firstName, lastName: data.lastName, email: data.email, password: data.password, image: data.image, _id: data._id });
 
-        yield put({ type: CHANGEUSER_SUCCESS, payload: data });
+        yield put({ type: CHANGEUSER_SUCCESS, payload: user });
         localStorage.setItem('user', user);
         yield put(push('/'));
     } catch (error) {
